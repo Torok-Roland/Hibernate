@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 public class Child {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+
     private Integer Id;
 
     private String name;
