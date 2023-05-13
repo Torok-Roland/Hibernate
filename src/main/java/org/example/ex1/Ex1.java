@@ -1,5 +1,7 @@
 package org.example.ex1;
 
+import org.example.ex2.Student;
+import org.example.ex2.Teacher;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -17,6 +19,8 @@ public class Ex1 {
                 .configure("hibernate.config.xml")
                 .addAnnotatedClass(Movie.class)
                 .addAnnotatedClass(Actor.class)
+                .addAnnotatedClass(Student.class)
+                .addAnnotatedClass(Teacher.class)
                 .buildSessionFactory();
 
         Session session = sessionFactory.openSession();
@@ -29,6 +33,13 @@ public class Ex1 {
         firstMovie.setImdbScore(8);
      //   firstMovie.setReleaseDate("1990-10-12");
         session.persist(firstMovie); // un fel de insert
+
+
+        Student firstStudent = new Student();
+        firstStudent.setId(1);
+        firstStudent.setFullName("Ilie Moromete");
+
+
         transaction.commit(); // toate modificarile se duc in baza de date
         session.close();
     }
