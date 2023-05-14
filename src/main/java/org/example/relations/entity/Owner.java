@@ -2,35 +2,29 @@ package org.example.relations.entity;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
-@Table(name = "animals")
-public class Animal {
+@Table(name = "owners")
+public class Owner {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     private String name;
 
-    private String type;
-
-    @ManyToOne(cascade = {CascadeType.PERSIST})
+    @OneToMany(cascade = {CascadeType.PERSIST})
     @JoinColumn(name = "owner_id")
-    private Owner owner;
+    List<Animal> pets;
 
-    public Animal(Integer id, String name, String type, Owner owner) {
+    public Owner(Integer id, String name, List<Animal> pets) {
         this.id = id;
         this.name = name;
-        this.type = type;
-        this.owner = owner;
+        this.pets = pets;
     }
 
-    public Owner getOwner() {
-        return owner;
-    }
-
-    public void setOwner(Owner owner) {
-        this.owner = owner;
-    }
 
     public Integer getId() {
         return id;
@@ -48,11 +42,20 @@ public class Animal {
         this.name = name;
     }
 
-    public String getType() {
-        return type;
+    public List<Animal> getPets() {
+        return pets;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setPets(List<Animal> pets) {
+        this.pets = pets;
     }
+
+    public void addPet(Animal newPet) {
+        pets.add(newPet);
+    }
+
+    public void removePet(Animal pet) {
+        pets.remove(pet);
+    }
+
 }
